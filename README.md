@@ -75,6 +75,9 @@ chmod +x hello-world.sh
 # Nice references
 
 https://github.com/awesome-lists/awesome-bash
+
 https://crontab.guru/every-minute
+
 https://devhints.io/bash
+
 https://tldp.org/LDP/Bash-Beginners-Guide/html/Bash-Beginners-Guide.html
