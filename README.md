@@ -7,6 +7,7 @@ This repository contains some examples of bash scripts that will be used as an i
 Every script, by default, will not have the necessary permissions so we can execute them; this is a security matter since scripts can be powerful and harm your system. So, how do we grant access to it so we can run?
 
 There is a command in Linux called `chmode`, which stands for _change mode_. We use it to change the permissions (read, write and execute) for a specific file. You can run the `ls` command with the flag `-l` to check the current permissions. For example:
+
 ![image](https://user-images.githubusercontent.com/19495917/136972765-c72a770e-1cfa-4a5b-9afb-ec62c9e613fc.png)
 
 The first three are related to the owner permissions (u), then the next three refer to group permissions (g), and the last ones are the "everyone" permissions (o).
