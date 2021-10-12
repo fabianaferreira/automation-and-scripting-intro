@@ -2,6 +2,27 @@
 
 This repository contains some examples of bash scripts that will be used as an introduction to scripting. They're pretty simple but good for us to start learning how to use them.
 
+## What's a shell script and where do they live?
+
+With just a few words, a shell script contains shell commands whose main objective is to automate tasks. It has a complete programming language with loops, variables, conditional statements, functions, etc.
+
+They're powerful but not the best choice for some tasks. For instance, shell scripts are suitable for:
+
+- Work with text;
+- Manage processes;
+- File system operations;
+- System administration.
+
+But they are not so good for:
+
+- Complex calculations;
+- Complex data structures;
+- Graphical user interface
+
+In the next sections, you'll learn more about setting the correct permissions and running the scripts. Furthermore, we'll go through some examples to present to you the syntax and language specificities. Shall we?
+
+There are different shells and each one of them has its own advantages and disadvantages. In this repository, we're focusing on bash scripts, but I use [zsh](https://www.zsh.org/) as my current shell for its nice extras and for [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh), the open-source framework to manage the zsh configurations.
+
 ## Setting up the permissions for scripts
 
 Every script, by default, will not have the necessary permissions so we can execute them; this is a security matter since scripts can be powerful and harm your system. So, how do we grant access to it so we can run?
@@ -42,9 +63,18 @@ The first bash script that we implement to get to know more about it. It prints 
 echo "Hello World"
 ```
 
-### Wishlist bot with Telegram
+This example is inside the examples folder from this repository, fell free to use it to start learning. To run it, you can simply use the following command:
+```
+./hello-world.sh
+```
 
-### Watching files inside a folder
+> Do not forget that you need to have granted access to the owner to execute the script!
+
+### Telegram bot
+This bot basically does a cURL request to a specific bot that I've created to send a message to the chat that it has with myself. For now, the code for this script wasn't pushed due to some tokens that I did not hide with secrets (TODO).
+
+### Fetching and pulling changes for git repositories
+This script goes to every subfolder inside the directory that was provided by an user argument while running the script. It fetches and pulls the changes on each one of them. It does not deal with conflicts and merges.
 
 ## Shell initialization files
 
@@ -72,6 +102,24 @@ After creating the file, we need to make our bash script executable, which means
 chmod +x hello-world.sh
 ```
 
+### Important notes
+It's possible that you face some problems while running the script. For instance, if you use a shell other than `sh`, you'll probably have to explicitly tell crontab the absolute path to the shell that you use. To do that, you need to add a line before the cron expression. Example:
+
+```
+SHELL=/bin/zsh
+PATH=/usr/local/bin:/usr/bin
+* * * * * cd ~/Documents/automation-and-scripting-intro/scripting/examples && ./prs_repos.sh vtex cloud-services
+```
+
+In my case, I faced two problems:
+- My script wasn't finding the jq package that is installed in `zsh` (it was looking for it in `sh`);
+- The `zsh` installation folder wasn't in the PATH variable.
+
+Besides that, I had to grant some access to `cron` in the settings for the MacOS.
+
+
+
+
 # Nice references
 
 https://github.com/awesome-lists/awesome-bash
@@ -81,3 +129,6 @@ https://crontab.guru/every-minute
 https://devhints.io/bash
 
 https://tldp.org/LDP/Bash-Beginners-Guide/html/Bash-Beginners-Guide.html
+
+# Special thanks
+Thank you, @saviomuniz, for encouraging me to go deep in this subject to share this knowledge, and for all the good aliases and tips that you've given to me while working with you :rocket:.
