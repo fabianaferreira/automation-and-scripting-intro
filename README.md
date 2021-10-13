@@ -23,6 +23,10 @@ In the next sections, you'll learn more about setting the correct permissions an
 
 There are different shells, and each one of them has its advantages and disadvantages. In this repository, we're focusing on bash scripts, but I use [zsh](https://www.zsh.org/) as my current shell for its nice extras and for [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh), the open-source framework to manage the `zsh` configurations.
 
+### What's the difference between a shell and a terminal?
+
+A shell is a command-line interpreter, it processes commands and outputs the results and it's a layer that sits on top of the kernel. On the other hand, a terminal is a text input and output environment that runs a shell and allows us to enter commands.
+
 ## Setting up the permissions for scripts
 
 Every script, by default, will not have the necessary permissions so we can execute them; this is a security matter since scripts can be powerful and harm your system. So, how do we grant access to it so we can run?
@@ -63,7 +67,7 @@ The first bash script that we implement to get to know more about it. It prints 
 echo "Hello World"
 ```
 
-This example is inside the examples folder from this repository, fell free to use it to start learning. To run it, you can simply use the following command:
+This example is inside the examples folder from this repository, feel free to use it to start learning. To run it, you can use the following command:
 
 ```bash
 ./hello-world.sh
@@ -83,7 +87,7 @@ This script goes to every subfolder inside the directory provided by a user argu
 
 Whenever you need to debug a shell script, you can use flags in the shebang line (the first line of the script, where you define the shell that will interpret it).
 
-For instance, the `-v` flag stands for verbose, and it will give you as output each one of the commands that are running. However, this might not be that useful since you do not have the values of each line, and that's when the `-x` flag comes to the field of play. It will give you both the commands and the values.
+For instance, the `-v` flag stands for verbose, and it will give you as output each of the commands that are running. However, this might not be that useful since you do not have the values of each line, and that's when the `-x` flag comes to the field of play. It will give you both the commands and the values.
 
 Example:
 Let's say that we're running a "Hello World", but it gets an argument from the user. The script looks like this:
@@ -108,11 +112,53 @@ But if I run it with the `-x` flag, it will have the output mentioned below, whi
 + echo 'Hello World, Fabiana'
 ```
 
+## Shell concepts and syntax
+
+In this section, I'll not go through loops' concepts because it's just a matter of syntax. I prefer to explore some subtleties from the language.
+
+### Variables
+
+To create a variable, you need to assign a value to it. Do not forget that we cannot use space between the equal sign and the two sides of the assignment. Besides that, for variables that contain spaces, we need to use quotes.
+
+> What's the difference between defining and exporting a variable?
+
+If you do not know the answer, it's fine! It's all part of the learning process! In a few words, an exported variable is available to all child processes created from that shell.
+
+### Functions
+
+In functions, the arguments are passed by simply putting them right after the function's name. The parameters are `$1`, `$2`, ..., `$n`, and they correspond to its position after the function's name. Example:
+
+```bash
+#!/bin/bash
+
+greeting () {
+  echo "Hello $1"
+}
+
+greeting "Joe"
+```
+
+You can use the **return** word to return a value, but the result will be accessible by `$?` outside the function. Example:
+
+```bash
+#!/bin/bash
+
+my_function () {
+  echo "some result"
+  return 55
+}
+
+my_function
+echo $?
+```
+
+You can also define local variables inside the function by using the `local` reserved word. The scope is well-defined, which means that this variable will only exist inside the function.
+
 ## Shell initialization files
 
 They're shell scripts that run automatically each time the user logs in. They usually set up the work environment and customizes the shell environment for the user.
 
-The most common file is the `.bashrc`, or `.zshrc` for Zsh users. It's usually the place where we define aliases, functions, and environment variables that are useful daily. For instance, I have a lot of aliases for git and kubectl commands. A well-known practice is to create a repository in GitHub that we usually call dotfiles that contain those files, so we can have it somewhere else to avoid losing our setup in case of problems with our computer.
+The most common file is the `.bashrc`, or `.zshrc` for Zsh users. It's usually where we define aliases, functions, and environment variables that are useful daily. For instance, I have a lot of aliases for git and kubectl commands. A well-known practice is to create a repository in GitHub that we usually call dotfiles that contain those files, so we can have it somewhere else to avoid losing our setup in case of problems with our computer.
 
 ## Cron jobs
 
@@ -153,13 +199,23 @@ Besides that, I had to grant some access to `cron` in the settings for the MacOS
 
 # Nice references
 
-https://github.com/awesome-lists/awesome-bash
+https://www.geeksforgeeks.org/difference-between-terminal-console-shell-and-command-line/
 
-https://crontab.guru/every-minute
+https://tldp.org/LDP/Bash-Beginners-Guide/html/Bash-Beginners-Guide.html
+
+https://linuxize.com/post/bash-functions/
 
 https://devhints.io/bash
 
-https://tldp.org/LDP/Bash-Beginners-Guide/html/Bash-Beginners-Guide.html
+https://www.gnu.org/software/bash/manual/bash.html#Pipelines
+
+https://effective-shell.com/docs/part-2-core-skills/thinking-in-pipelines/
+
+https://www.tutorialspoint.com/execute_bash_online.php
+
+https://github.com/awesome-lists/awesome-bash
+
+https://crontab.guru/every-minute
 
 # Special thanks
 
